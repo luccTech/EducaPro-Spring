@@ -49,5 +49,39 @@ public class UserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Transactional
+    public User update(Long id, User updatedUser) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+
+        // Atualizar campos
+        if (updatedUser.getName() != null) {
+            user.setName(updatedUser.getName());
+        }
+        if (updatedUser.getPhone() != null) {
+            user.setPhone(updatedUser.getPhone());
+        }
+        if (updatedUser.getEducationLevel() != null) {
+            user.setEducationLevel(updatedUser.getEducationLevel());
+        }
+        if (updatedUser.getAddress() != null) {
+            user.setAddress(updatedUser.getAddress());
+        }
+        if (updatedUser.getObjective() != null) {
+            user.setObjective(updatedUser.getObjective());
+        }
+        if (updatedUser.getBirthDate() != null) {
+            user.setBirthDate(updatedUser.getBirthDate());
+        }
+        if (updatedUser.getPhotoUrl() != null && !updatedUser.getPhotoUrl().isEmpty() && !updatedUser.getPhotoUrl().equals("null")) {
+            System.out.println("UserService - Atualizando photoUrl, tamanho: " + updatedUser.getPhotoUrl().length());
+            user.setPhotoUrl(updatedUser.getPhotoUrl());
+        } else {
+            System.out.println("UserService - photoUrl não será atualizado");
+        }
+
+        return userRepository.save(user);
+    }
 }
 

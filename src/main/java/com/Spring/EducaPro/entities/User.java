@@ -55,6 +55,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "photo_url", columnDefinition = "LONGTEXT")
+    private String photoUrl; // URL da foto em base64 ou URL
+
     @Column(name = "created_at")
     private LocalDate createdAt;
 
