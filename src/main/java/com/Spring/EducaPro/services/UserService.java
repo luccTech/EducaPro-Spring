@@ -83,5 +83,12 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
+        userRepository.delete(user);
+    }
 }
 
